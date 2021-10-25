@@ -9,11 +9,11 @@ import { col, fn, where } from 'sequelize'
 export class UsersRepository {
   private readonly users: typeof User
 
-  public constructor (@InjectModel(User) users: typeof User) {
+  public constructor(@InjectModel(User) users: typeof User) {
     this.users = users
   }
 
-  public async findForId (id: number): Promise<User | null> {
+  public async findForId(id: number): Promise<User | null> {
     return this.users.findOne({
       where: {
         id,
@@ -21,7 +21,7 @@ export class UsersRepository {
     })
   }
 
-  public async findForUsername (username: string): Promise<User | null> {
+  public async findForUsername(username: string): Promise<User | null> {
     return this.users.findOne({
       where: {
         username: where(fn('lower', col('username')), username),
@@ -29,7 +29,7 @@ export class UsersRepository {
     })
   }
 
-  public async create (username: string, password: string): Promise<User> {
+  public async create(username: string, password: string): Promise<User> {
     const user = new User()
 
     user.username = username
